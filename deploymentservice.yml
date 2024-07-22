@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment
+  name: spring-boot-k8s-deployment
   labels:
-    app: nodeapp
+    app: spring-boot-k8s
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodeapp
+      app: spring-boot-k8s
   template:
     metadata:
       labels:
-        app: nodeapp 
+        app: spring-boot-k8s 
     spec:
       containers:
-      - name: nodeserver
-        image: thetips4you/nodeapp:latest
+      - name: spring-boot-k8s
+        image: anusha1842/node-js:main
         ports:
-        - containerPort: 3000
+        - containerPort: 4000
         
         
 ---
@@ -26,13 +26,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeapp-service
+  name: spring-boot-k8ssvc
 spec:
   selector:
-    app: nodeapp 
+    app: spring-boot-k8s 
   type: LoadBalancer
   ports:
   - protocol: TCP
-    port: 5000
-    targetPort: 3000
-    nodePort: 31110
+    port: 4000
+    targetPort: 4000
+  type: NodePort
